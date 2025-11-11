@@ -10,13 +10,8 @@ const emit = defineEmits(['eliminar', 'marcar'])
 
 <template>
   <ul>
-    <TaskItem
-      v-for="tasca in tasques"
-      :key="tasca.id"
-      :tasca="tasca"
-      @eliminar="emit('eliminar', tasca.id)"
-      @marcar="emit('marcar', tasca.id)"
-    />
+    <TaskItem v-for="tasca in tasques" :key="tasca.id" :tasca="tasca" @eliminar="emit('eliminar', tasca.id)"
+      @marcar="emit('marcar', tasca.id)" />
   </ul>
 </template>
 

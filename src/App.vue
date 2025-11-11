@@ -14,32 +14,38 @@ const mostrarPendents = ref(false)
 
 const afegirTasca = (nom) => {
   if (!nom.trim()) return
-  const nouId = tasques.value.length ? tasques.value[tasques.value.length - 1].id + 1 : 1
+  let nouId
+  if (tasques.value.length > 0) {
+    const ultimaTasca = tasques.value[tasques.value.length - 1]
+    nouId = ultimaTasca.id + 1
+  } else {
+    nouId = 1
+  }
   tasques.value.push({ id: nouId, nom, completada: false })
 }
 
 const eliminarTasca = (id) => {
-  tasques.value = tasques.value.filter(t => t.id !== id)
+  tasques.value = tasques.value.filter(tasca => tasca.id !== id)
 }
 
 const marcarTasca = (id) => {
-  const tasca = tasques.value.find(t => t.id === id)
+  const tasca = tasques.value.find(tasca => tasca.id === id)
   if (tasca) tasca.completada = !tasca.completada
 }
 
 const tasquesFiltrades = computed(() => {
   return mostrarPendents.value
-    ? tasques.value.filter(t => !t.completada)
+    ? tasques.value.filter(tasca => !tasca.completada)
     : tasques.value
 })
 
 const totalTasques = computed(() => tasques.value.length)
-const pendents = computed(() => tasques.value.filter(t => !t.completada).length)
+const pendents = computed(() => tasques.value.filter(tasca => !tasca.completada).length)
 </script>
 
 <template>
   <div class="fons">
-    <div class="contenidor">
+    <div class="gestorTasques">
       <h1>Gestor de Tasques</h1>
 
       <TaskForm @afegir="afegirTasca" />
@@ -49,11 +55,7 @@ const pendents = computed(() => tasques.value.filter(t => !t.completada).length)
         <label for="pendents">Mostra només pendents</label>
       </div>
 
-      <TaskList
-        :tasques="tasquesFiltrades"
-        @eliminar="eliminarTasca"
-        @marcar="marcarTasca"
-      />
+      <TaskList :tasques="tasquesFiltrades" @eliminar="eliminarTasca" @marcar="marcarTasca" />
 
       <p class="infoTasques">
         Total: {{ totalTasques }} | Pendents: {{ pendents }}
@@ -63,7 +65,6 @@ const pendents = computed(() => tasques.value.filter(t => !t.completada).length)
 </template>
 
 <style scoped>
-/* Puedes mantener tu CSS original aquí */
 .fons {
   background-color: #000;
   height: 100vh;
@@ -73,7 +74,7 @@ const pendents = computed(() => tasques.value.filter(t => !t.completada).length)
   overflow: hidden;
 }
 
-.contenidor {
+.gestorTasques {
   text-align: center;
   width: 340px;
   background-color: #0a0a0a;
@@ -85,7 +86,7 @@ const pendents = computed(() => tasques.value.filter(t => !t.completada).length)
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contenidor:hover {
+.gestorTasques:hover {
   transform: scale(1.1);
   box-shadow: 0 0 40px rgba(255, 0, 0, 0.7);
 }
