@@ -47,7 +47,8 @@ span.completada {
   gap: 6px;
 }
 
-.boto-completar {
+.boto-completar,
+.boto-eliminar {
   background-color: #ffcc00;
   color: #000;
   border: none;
@@ -59,20 +60,13 @@ span.completada {
   transition: background-color 0.2s ease;
 }
 
-.boto-completar:hover {
-  background-color: #e6b800;
-}
-
 .boto-eliminar {
   background-color: #ff4040;
   color: #fff;
-  border: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
+}
+
+.boto-completar:hover {
+  background-color: #e6b800;
 }
 
 .boto-eliminar:hover {

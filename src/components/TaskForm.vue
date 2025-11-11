@@ -32,6 +32,15 @@ input {
   border: 1px solid #333;
   background-color: #111;
   color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+input:hover {
+  border: 1px solid red;
+}
+
+input:focus {
+  border: 4px solid red;
 }
 
 .boto-afegir {
